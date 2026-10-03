@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { login, signup } from './actions';
+import { login } from '../actions/auth';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -77,13 +78,12 @@ export default function LoginPage() {
           >
             Anmelden
           </button>
-          <button
-            formAction={signup}
-            disabled={!isFormValid}
+          <Link
+            href="/register"
             className="border border-(--highlight-color) p-2 rounded flex-1 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             Registrieren
-          </button>
+          </Link>
         </div>
       </form>
     </div>
