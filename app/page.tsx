@@ -1,3 +1,9 @@
-export default function Home() {
-  return <div></div>;
+import DashboardPage from './dashboard/page';
+
+export default async function Home() {
+  return (
+    <div className="p-8">
+      <DashboardPage />
+    </div>
+  );
 }
