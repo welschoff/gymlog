@@ -70,7 +70,7 @@ export default function LoginPage() {
           )}
         </div>
 
-        <div className="flex gap-2 mt-2">
+        <div className="flex flex-col gap-3 mt-2">
           <button
             formAction={login}
             disabled={!isFormValid}
@@ -78,11 +78,11 @@ export default function LoginPage() {
           >
             Anmelden
           </button>
-          <Link
-            href="/register"
-            className="border border-(--highlight-color) p-2 rounded flex-1 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            Registrieren
+          <Link href="/register">
+            Noch kein Konto?{' '}
+            <span className="text-(--highlight-color) underline">
+              Registrieren
+            </span>
           </Link>
         </div>
       </form>

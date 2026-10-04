@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { createClient as createAdminClient } from '@supabase/supabase-js';
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -67,26 +66,4 @@ export async function logout() {
   revalidatePath('/', 'layout');
 
   redirect('/login');
-}
-
-const supabaseAdmin = createAdminClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
-
-export async function checkEmailExists(email: string): Promise<boolean> {
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return false;
-  }
-
-  const { data, error } = await supabaseAdmin.auth.admin.listUsers();
-
-  if (error || !data) {
-    console.error('Fehler beim Prüfen der E-Mail:', error);
-    return false;
-  }
-
-  return data.users.some(
-    (user) => user.email?.toLowerCase() === email.toLowerCase(),
-  );
 }

@@ -34,9 +34,6 @@ export default function RegisterPage() {
         <span className="text-2xl font-semibold text-green-500">
           Registrierung erfolgreich!
         </span>
-        <p className="text-gray-400">
-          Bitte prüfe ggf. dein E-Mail-Postfach zur Bestätigung.
-        </p>
         <Link
           href="/login"
           className="bg-(--highlight-color) text-black px-4 py-2 rounded"
