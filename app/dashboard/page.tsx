@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import LastSevenDaysCard from './components/LastSevenDaysCard';
 import WorkoutCard from './components/WorkoutCard';
+
 export default async function DashboardPage() {
   const supabase = await createClient();
 
@@ -12,6 +13,13 @@ export default async function DashboardPage() {
   if (!user) {
     redirect('/login');
   }
+
+  const { data: recentWorkouts } = await supabase
+    .from('workouts')
+    .select('id, name, started_at, completed_at')
+    .eq('user_id', user.id)
+    .order('started_at', { ascending: false })
+    .limit(5);
 
   return (
     <div>
@@ -27,7 +35,17 @@ export default async function DashboardPage() {
         </button>
         <div>
           <span className="text-secondary text-xs">Recent Workouts</span>
-          <WorkoutCard />
+          <div className="flex flex-col gap-3 mt-2">
+            {recentWorkouts && recentWorkouts.length > 0 ? (
+              recentWorkouts.map((workout) => (
+                <WorkoutCard key={workout.id} workout={workout} />
+              ))
+            ) : (
+              <p className="text-secondary text-sm mt-2">
+                No workouts done, yet.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
