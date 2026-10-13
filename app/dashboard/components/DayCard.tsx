@@ -8,7 +8,7 @@ function DayCard({ day, isWorkoutDay }: DayCardProps) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div
-        className={`${isWorkoutDay ? 'bg-highlight' : 'bg-amber-50'} w-10 h-8 rounded `}
+        className={`${isWorkoutDay ? 'bg-highlight' : 'bg-[#27272A]'} w-10 h-8 rounded `}
       />
       <span>{day}</span>
     </div>

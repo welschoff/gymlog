@@ -1,25 +1,9 @@
-import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
 import LastSevenDaysCard from './components/LastSevenDaysCard';
 import WorkoutCard from './components/WorkoutCard';
+import { getRecentWorkouts } from '@/lib/supabase/workouts';
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect('/login');
-  }
-
-  const { data: recentWorkouts } = await supabase
-    .from('workouts')
-    .select('id, name, started_at, completed_at')
-    .eq('user_id', user.id)
-    .order('started_at', { ascending: false })
-    .limit(5);
+  const recentWorkouts = await getRecentWorkouts();
 
   return (
     <div>

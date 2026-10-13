@@ -1,19 +1,32 @@
 import DayCard from './DayCard';
+import { getLastSevenDaysWorkouts } from '@/lib/supabase/workouts';
 
 const DAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-function LastSevenDaysCard() {
+async function LastSevenDaysCard() {
   const today = new Date();
+  const workouts = await getLastSevenDaysWorkouts();
+
+  const hasWorkoutOnDate = (date: Date) => {
+    return workouts.some((workout) => {
+      const workoutDate = new Date(workout.completed_at);
+      return (
+        workoutDate.getDate() === date.getDate() &&
+        workoutDate.getMonth() === date.getMonth() &&
+        workoutDate.getFullYear() === date.getFullYear()
+      );
+    });
+  };
 
   const last7Days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date();
-
     d.setDate(today.getDate() - (6 - i));
 
     return {
       date: d,
       label: DAY_LABELS[d.getDay()],
       isToday: i === 6,
+      isWorkoutDay: hasWorkoutOnDate(d),
     };
   });
 
@@ -26,7 +39,7 @@ function LastSevenDaysCard() {
             key={item.date.toISOString()}
             day={item.label}
             isToday={item.isToday}
-            isWorkoutDay
+            isWorkoutDay={item.isWorkoutDay}
           />
         ))}
       </div>

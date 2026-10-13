@@ -5,7 +5,7 @@ type Workout = {
   completed_at: string | null;
 };
 
-function WorkoutCard({ workout }: { workout: Workout }) {
+async function WorkoutCard({ workout }: { workout: Workout }) {
   const formattedDate = new Date(workout.started_at).toLocaleDateString(
     'de-DE',
     {
@@ -16,12 +16,12 @@ function WorkoutCard({ workout }: { workout: Workout }) {
   );
 
   return (
-    <div className="bg-card p-3 rounded ring ring-gray-800">
-      <div className="flex justify-between">
+    <div className="bg-card p-3 rounded ring ring-gray-800 flex justify-between items-start">
+      <div>
         <span>{workout.name}</span>
-      </div>
-      <div className="flex justify-between text-secondary text-xs">
-        <span>{formattedDate}</span>
+        <div className="text-secondary text-xs mt-1">
+          <span>{formattedDate}</span>
+        </div>
       </div>
     </div>
   );
