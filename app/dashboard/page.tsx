@@ -1,5 +1,5 @@
 import LastSevenDaysCard from './components/LastSevenDaysCard';
-import WorkoutCard from './components/WorkoutCard';
+import WorkoutList from './components/WorkoutList'; // <--- Neu importieren
 import { getRecentWorkouts } from '@/lib/supabase/workouts';
 
 export default async function DashboardPage() {
@@ -19,17 +19,7 @@ export default async function DashboardPage() {
         </button>
         <div>
           <span className="text-secondary text-xs">Recent Workouts</span>
-          <div className="flex flex-col gap-3 mt-2">
-            {recentWorkouts && recentWorkouts.length > 0 ? (
-              recentWorkouts.map((workout) => (
-                <WorkoutCard key={workout.id} workout={workout} />
-              ))
-            ) : (
-              <p className="text-secondary text-sm mt-2">
-                No workouts done, yet.
-              </p>
-            )}
-          </div>
+          <WorkoutList initialWorkouts={recentWorkouts || []} />
         </div>
       </div>
     </div>
