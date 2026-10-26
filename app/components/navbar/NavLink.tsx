@@ -18,7 +18,7 @@ function NavLink({ href, icon, name }: NavLinkProps) {
     <div>
       <Link
         href={href}
-        className={`flex flex-col items-center ${isActive ? 'text-(--highlight-color)' : ''}`}
+        className={`flex flex-col items-center ${isActive ? 'text-highlight' : ''}`}
       >
         {icon}
         <span>{name}</span>

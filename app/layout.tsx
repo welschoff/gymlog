@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { JetBrains_Mono, Barlow_Condensed } from 'next/font/google';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +14,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 const barlow = Barlow_Condensed({
-  weight: ['600'],
+  weight: ['800'],
   variable: '--font-header',
 });
 
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${jetbrains.variable} ${barlow.variable}`}>
       <body>
-        {children}
+        <main className="pt-5 px-5">{children}</main>
 
         <Navbar />
       </body>
