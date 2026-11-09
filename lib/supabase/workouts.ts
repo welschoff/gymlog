@@ -73,3 +73,13 @@ export async function deleteWorkout(workoutId: string) {
 
   return { success: true };
 }
+
+export async function getExercises() {
+  const supabase = await createClient();
+
+  const { data: exercises } = await supabase
+    .from('exercises')
+    .select('id, name');
+
+  return exercises;
+}
