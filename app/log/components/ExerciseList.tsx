@@ -8,6 +8,11 @@ type ExerciseListProps = {
 
 export default function ExerciseList({ exercises }: ExerciseListProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredExercises = exercises.filter((exercise) =>
+    exercise.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <div className="relative">
@@ -28,7 +33,7 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
       </div>
 
       {isOpen && (
-        <div className="absolute top-0 left-0 z-20 w-full h-full bg-black/80">
+        <form className="absolute top-0 left-0 z-20 w-full h-full bg-black/80">
           <div
             className="min-h-[25vh] w-full bg-transparent"
             onClick={() => setIsOpen(false)}
@@ -47,8 +52,16 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
               </button>
             </div>
 
+            <div>
+              <input
+                type="text"
+                className="bg-gray-700 w-full p-2 decoration-0"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
             <div className="flex flex-col divide-gray-800 text-gray-300 divide-y-[0.5px] overflow-y-auto">
-              {exercises.map((exercise) => (
+              {filteredExercises.map((exercise) => (
                 <div
                   key={exercise.id}
                   className="p-4 hover:bg-zinc-600 transition-colors cursor-pointer"
@@ -58,7 +71,7 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
               ))}
             </div>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );

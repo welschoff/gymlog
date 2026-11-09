@@ -7,7 +7,7 @@ export default async function DashboardPage() {
   const recentWorkouts = await getRecentWorkouts();
 
   return (
-    <div>
+    <div className="p-5">
       <h1 className="text-5xl font-black font-header mb-5">
         YOUR
         <br />
