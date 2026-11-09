@@ -36,7 +36,10 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
         <form className="absolute top-0 left-0 z-20 w-full h-full bg-black/80">
           <div
             className="min-h-[25vh] w-full bg-transparent"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setSearchTerm('');
+            }}
           />
 
           <div className="absolute left-0 w-full bg-black text-white rounded-t-2xl flex flex-col max-h-[75vh]">
@@ -45,7 +48,10 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
                 choose exercise
               </span>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setSearchTerm('');
+                }}
                 className="text-gray-400 hover:text-white p-1"
               >
                 ✕
