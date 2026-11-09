@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${jetbrains.variable} ${barlow.variable}`}>
       <body>
-        <main className="pt-5 px-5">{children}</main>
+        <main>{children}</main>
 
         <Navbar />
       </body>

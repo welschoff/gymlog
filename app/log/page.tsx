@@ -6,7 +6,6 @@ export default async function LogPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-header">NEW WORKOUT</h1>
       <ExerciseList exercises={exercises ?? []} />
     </div>
   );
