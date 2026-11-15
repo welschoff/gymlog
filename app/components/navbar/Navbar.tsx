@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <div
       suppressHydrationWarning
-      className="fixed bottom-0 border-t border-gray-50 w-full flex justify-between p-3 text-xs text-gray-400"
+      className="fixed bottom-0 border-t-[0.5px] border-gray-400 w-full flex justify-between p-3 text-xs text-gray-400"
     >
       <NavLink href="/dashboard" icon={<LayoutGridCircles />} name="HOME" />
       <NavLink href="/log" icon={<Plus />} name="LOG" />

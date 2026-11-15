@@ -58,10 +58,11 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
               </button>
             </div>
 
-            <div>
+            <div className="flex justify-center w-full">
               <input
                 type="text"
-                className="bg-gray-700 w-full p-2 decoration-0"
+                placeholder="Search exercise..."
+                className="m-5 p-3 bg-[#18181B] border border-gray-500 rounded-xl decoration-0 w-full focus:outline-highlight"
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
