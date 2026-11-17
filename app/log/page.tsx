@@ -1,12 +1,12 @@
 import { getExercises } from '@/lib/supabase/workouts';
-import ExerciseList from './components/ExerciseList';
+import ExercisePicker from './components/ExercisePicker';
 
 export default async function LogPage() {
   const exercises = await getExercises();
 
   return (
     <div>
-      <ExerciseList exercises={exercises ?? []} />
+      <ExercisePicker exercises={exercises ?? []} />
     </div>
   );
 }

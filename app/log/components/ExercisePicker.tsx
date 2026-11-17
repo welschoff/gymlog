@@ -6,7 +6,7 @@ type ExerciseListProps = {
   exercises: { id: string; name: string }[];
 };
 
-export default function ExerciseList({ exercises }: ExerciseListProps) {
+export default function ExercisePicker({ exercises }: ExerciseListProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -17,16 +17,16 @@ export default function ExerciseList({ exercises }: ExerciseListProps) {
   return (
     <div className="relative">
       <h1 className="text-3xl font-header p-5">NEW WORKOUT</h1>
-      <div className="px-5 pt-5 flex flex-col gap-5 text-gray-500">
+      <div className="px-4 flex flex-col text-[#27272A]">
         <div className="flex flex-col w-ful items-center gap-5 py-25">
           <span className="uppercase text-4xl font-black">
             no exercises yet
           </span>
-          <span>Add your exercises below</span>
+          <span className="text-[#494952]">Add your first exercise below</span>
         </div>
         <button
           onClick={() => setIsOpen(true)}
-          className="border border-dashed p-4 w-full rounded-xl"
+          className="border border-dashed p-4 w-full rounded-xl text-[#494952]"
         >
           + Add Exercise
         </button>
