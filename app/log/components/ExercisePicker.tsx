@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ExerciseModal from './ExerciseModal';
 import ExerciseCard from './ExerciseCard';
+import { saveWorkout } from '@/lib/supabase/workouts';
 
 export type Set = {
   id: string;
@@ -28,13 +29,15 @@ type ExercisePickerProps = {
 
 export default function ExercisePicker({ exercises }: ExercisePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [workoutName, setWorkoutName] = useState('NEW WORKOUT');
   const [selectedExercises, setSelectedExercises] = useState<
     SelectedExercise[]
   >([]);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleSelectExercise = (exercise: Exercise) => {
     const newInstance: SelectedExercise = {
-      id: exercise.id,
+      id: exercise.id, // Das ist die echte ID aus der DB!
       instanceId: crypto.randomUUID(),
       name: exercise.name,
       sets: [{ id: crypto.randomUUID(), kg: '', reps: '' }],
@@ -58,12 +61,38 @@ export default function ExercisePicker({ exercises }: ExercisePickerProps) {
     );
   };
 
+  const handleSaveWorkout = async () => {
+    if (selectedExercises.length === 0) {
+      alert('Please add at least one exercise.');
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const result = await saveWorkout(workoutName, selectedExercises);
+
+      if (result.success) {
+        alert('Workout saved successfully!');
+        setSelectedExercises([]);
+      } else {
+        alert(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('Failed to save workout:', error);
+      alert('An unexpected error occurred.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
-    <div className="relative min-h-screen bg-black text-white pb-10">
-      <div className="px-4">
+    <div className="relative min-h-screen bg-black text-white pb-24">
+      <div className="max-w-xl mx-auto px-4">
         <input
-          className="text-3xl font-black p-2 mt-5 mb-2 bg-transparent w-full uppercase focus:outline-none focus:shadow-[0_2px_0_0_#494952]"
-          defaultValue="NEW WORKOUT"
+          type="text"
+          value={workoutName}
+          onChange={(e) => setWorkoutName(e.target.value)}
+          className="text-3xl font-black p-2 mt-5 mb-2 bg-transparent w-full uppercase focus:outline-none focus:shadow-[0_2px_0_0_#71717a]"
         />
 
         <div className="flex flex-col gap-5 mt-4">
@@ -98,6 +127,17 @@ export default function ExercisePicker({ exercises }: ExercisePickerProps) {
           >
             + Add Exercise
           </button>
+
+          {selectedExercises.length > 0 && (
+            <button
+              type="button"
+              disabled={isSaving}
+              onClick={handleSaveWorkout}
+              className="bg-white text-black p-4 w-full rounded-xl font-black uppercase tracking-wider hover:bg-zinc-200 transition-colors disabled:opacity-50 mt-2"
+            >
+              {isSaving ? 'Saving to DB...' : 'Save Workout'}
+            </button>
+          )}
         </div>
       </div>
 

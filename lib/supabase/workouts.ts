@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { SelectedExercise } from '@/app/log/components/ExercisePicker';
 
 export async function getUser() {
   const supabase = await createClient();
@@ -82,4 +83,63 @@ export async function getExercises() {
     .select('id, name');
 
   return exercises;
+}
+
+export async function saveWorkout(
+  workoutName: string,
+  exercises: SelectedExercise[],
+) {
+  const user = await getUser();
+  const supabase = await createClient();
+
+  if (!workoutName.trim()) {
+    return { success: false, error: 'Workout name is required.' };
+  }
+
+  if (exercises.length === 0) {
+    return { success: false, error: 'At least one exercise is required.' };
+  }
+
+  try {
+    const { data: workout, error: workoutError } = await supabase
+      .from('workouts')
+      .insert({
+        user_id: user.id,
+        name: workoutName.trim(),
+        completed_at: new Date().toISOString(),
+      })
+      .select('id')
+      .single();
+
+    if (workoutError) throw workoutError;
+
+    const setsToInsert = exercises.flatMap((exercise) =>
+      exercise.sets.map((set, index) => {
+        const parsedWeight = parseFloat(set.kg.replace(',', '.'));
+        const parsedReps = parseInt(set.reps, 10);
+
+        return {
+          workout_id: workout.id,
+          exercise_id: exercise.id,
+          weight: isNaN(parsedWeight) ? 0 : parsedWeight,
+          reps: isNaN(parsedReps) ? 0 : parsedReps,
+          set_order: index + 1,
+          is_completed: set.kg !== '' && set.reps !== '',
+        };
+      }),
+    );
+
+    if (setsToInsert.length > 0) {
+      const { error: setsError } = await supabase
+        .from('workout_sets')
+        .insert(setsToInsert);
+
+      if (setsError) throw setsError;
+    }
+
+    return { success: true, workoutId: workout.id };
+  } catch (error) {
+    console.error('Error saving workout to Supabase:', error);
+    return { success: false, error: 'Failed to save workout.' };
+  }
 }
