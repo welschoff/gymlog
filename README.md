@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GymLog (Work in Progress)
 
-## Getting Started
+**Live-Demo:** https://gymlog-7awj4qmwr-welschoffs-projects.vercel.app
 
-First, run the development server:
+Persönliche Web-App zum Erstellen und Tracken von Workouts – gebaut für den eigenen Einsatz im Gym und perspektivisch als **PWA** ausgelegt.
+
+## Status & bewusste Entscheidungen
+
+- **Work in Progress:** Das Projekt befindet sich aktiv im Aufbau (grundlegende Flows wie Workout-Erstellung, Tracking und Login stehen; Komfort-Features wie z. B. Logout oder Feinschliff folgen nach und nach).
+- **Mobile-first / Smartphone-Fokus:** Die Oberfläche ist gezielt für die schnelle Bedienung am Smartphone während des Trainings gebaut; Desktop-Layouts sind aktuell nicht priorisiert.
+- **Basis-Feinschliff:** Logout-Flow, Trainingshistorie und kleinere UX-Optimierungen.
+- **Entwicklung mit Coding Agents:** Da mein Schwerpunkt bisher stark im Frontend liegt, habe ich Datenmodell, Authentifizierung und Backend-Logik mithilfe von KI / Coding Agents entworfen, kritisch geprüft und Schritt für Schritt umgesetzt.
+
+## Geplante Features (Roadmap)
+
+- **KI-Workout-Generator:** Ein integrierter KI-Agent, der auf Basis von verfügbarer Trainingsdauer und gewünschten Muskelgruppen (z. B. _90 Min., Rücken & Brust_) direkt einen passenden Trainingsplan zusammenstellt.
+- **PWA-Ausbau & Offline-Nutzung:** Installierbarkeit auf dem Smartphone inklusive Offline-Support im Gym.
+
+## Tech-Stack
+
+- **Frontend:** Next.js / TypeScript / Tailwind CSS
+- **Backend & Auth:** Supabase (PostgreSQL)
+- **Hosting:** Vercel
+
+## Lokal starten (optional)
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
