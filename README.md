@@ -2,6 +2,8 @@
 
 **Live-Demo:** https://gymlog-7awj4qmwr-welschoffs-projects.vercel.app
 
+**Hinweis zum Testen:** Die E-Mail-Bestätigung in Supabase ist aktuell bewusst deaktiviert. Du kannst dich also einfach mit einer beliebigen (auch fiktiven) E-Mail-Adresse registrieren, um die App direkt auszuprobieren.
+
 Persönliche Web-App zum Erstellen und Tracken von Workouts – gebaut für den eigenen Einsatz im Gym und perspektivisch als **PWA** ausgelegt.
 
 ## Status & bewusste Entscheidungen
